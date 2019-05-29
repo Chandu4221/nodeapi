@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../db/models/userModel");
+const jwt = require("jsonwebtoken");
 const {
   validateUserRegistration,
   validateUserLogin
@@ -47,7 +48,8 @@ router.post("/login", async (req, res) => {
   );
   if (!validPassword) return res.status(400).send("Password Invalid");
 
-  res.send(existingUser);
+  const token = jwt.sign({ id: existingUser._id }, process.env.TOKEN_SECRET);
+  res.header("auth-token", token).send(token);
 });
 
 module.exports = router;
