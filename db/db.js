@@ -4,10 +4,9 @@ const mongoHost = `mongodb+srv://${process.env.DB_USER}:${
 }@cluster0-rtry9.mongodb.net/test?retryWrites=true`;
 
 const connection = mongoose
-  .createConnection(mongoHost, {
+  .connect(mongoHost, {
     useNewUrlParser: true
   })
-  .then(() => console.log("connected to db"))
-  .catch(err => console.log(err));
+  .then(() => console.log("db connected"));
 
 module.exports = connection;
